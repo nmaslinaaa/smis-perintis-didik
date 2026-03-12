@@ -3,7 +3,7 @@
     use App\Models\ParentModel;
 
     $groupLevel = Session::get('group_level');
-    $userId = Session::get('user_id');
+    $userId = Session::get('use_id');
     $user = Employee::find($userId);
     $name = 'Guest';
     $role = 'User';
