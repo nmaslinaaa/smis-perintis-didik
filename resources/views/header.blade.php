@@ -20,13 +20,13 @@ if ($user) {
 
            if (!empty($employee->profile_picture)) {
 
-                $filePath = public_path('uploads/profile_pictures/'.$employee->profile_picture);
-            
-                if (file_exists($filePath)) {
-                    $profileImage = asset('uploads/profile_pictures/'.$employee->profile_picture);
-                } else {
+                $filename = $employee->profile_picture;
+                $filePath = public_path('uploads/profile_pictures/' . $filename);
+                if ($filename && file_exists($filePath)) {            
+                $profileImage = asset('uploads/profile_pictures/' . $filename);
+                 } else {
                     $profileImage = asset('images/user-profile.png');
-                }            
+                }
             }
         }
 
@@ -38,16 +38,15 @@ if ($user) {
             $name = $parent->name ?? $parent->user_name ?? 'Parent';
             $role = 'Parent';
 
-            if (!empty($parent->profile_picture)) {
-
-                $filePath = public_path('uploads/profile_pictures/'.$parent->profile_picture);
-            
-                if (file_exists($filePath)) {
-                    $profileImage = asset('uploads/profile_pictures/'.$parent->profile_picture);
-                } else {
+           if (!empty($parent->profile_picture)) {            
+                $filename = $parent->profile_picture;            
+                $filePath = public_path('uploads/profile_pictures/' . $filename);            
+                if ($filename && file_exists($filePath)) {            
+                    $profileImage = asset('uploads/profile_pictures/' . $filename);            
+                } else {            
                     $profileImage = asset('images/user-profile.png');
-                }
             
+                }
             }
         }
     }
