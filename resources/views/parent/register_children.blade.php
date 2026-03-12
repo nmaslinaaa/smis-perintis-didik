@@ -767,11 +767,19 @@ window.addEventListener('DOMContentLoaded', function() {
             refreshSubjectDropdowns([]); // Clear if no class selected
             return;
         }
-        fetch(`/parent/class/${classID}/subjects`)
-            .then(response => response.json())
-            .then(subjects => {
-                refreshSubjectDropdowns(subjects);
-            });
+        fetch("{{ url('/parent/class') }}/" + classID + "/subjects", {
+            method: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(response => response.json())
+        .then(subjects => {
+            refreshSubjectDropdowns(subjects);
+        })
+        .catch(error => {
+            console.error("Error loading subjects:", error);
+        });
     });
 
     // Initial attach
