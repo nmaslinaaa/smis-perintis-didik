@@ -499,7 +499,7 @@
                         if (addRowInput && addRowInput.value.trim() === '') {
                             addRowInput.disabled = true;
                         }
-                        fetch(form.action, {
+                        fetch('/teacher/manage_syllabus/update', {
                             method: 'POST',
                             body: formData,
                             headers: {
@@ -582,7 +582,7 @@
                         confirmButtonText: 'Yes, remove it!'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            fetch("{{ url('/teacher/manage_syllabus/remove') }}", {
+                            fetch("/teacher/manage_syllabus/remove", {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
