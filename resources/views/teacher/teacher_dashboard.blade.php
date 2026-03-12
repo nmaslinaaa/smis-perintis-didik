@@ -584,7 +584,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     let allSubjects = [];
-    fetch("{{ url('/teacher/syllabus_coverage/options') }}")
+    fetch("/teacher/syllabus_coverage/options")
         .then(response => response.json())
         .then(data => {
             const classSelect = document.getElementById('syllabus-class-select');
@@ -618,7 +618,7 @@ document.addEventListener('DOMContentLoaded', function() {
             subjectDiv.style.transition = 'all 0.6s ease';
 
             // For each subject, fetch percent
-            fetch("{{ url('/teacher/syllabus_coverage/percent') }}", {
+            fetch("/teacher/syllabus_coverage/percent", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -704,7 +704,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let allSubjects = [];
     let allClasses = [];
     // Fetch class/subject options from the same endpoint as coverage
-    fetch("{{ url('/teacher/syllabus_coverage/options') }}")
+    fetch("/teacher/syllabus_coverage/options")
         .then(response => response.json())
         .then(data => {
             allClasses = data.classes;
@@ -765,7 +765,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         // Use today as default date
         const today = new Date().toISOString().slice(0, 10);
-        fetch("{{ url('/teacher/dashboard/attendance_summary') }}", {
+        fetch("/teacher/dashboard/attendance_summary", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -847,7 +847,7 @@ function updatePaymentStatusCard() {
     // Format label
     const monthLabel = now.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
     if (label) label.textContent = `Payment status for: ${monthLabel}`;
-    fetch("{{ url('/teacher/dashboard/payment_status') }}", {
+    fetch("/teacher/dashboard/payment_status", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -859,7 +859,7 @@ function updatePaymentStatusCard() {
     .then(data => {
         paymentStatusAllStudents = data;
         // Fetch all classes for dropdown
-        fetch("{{ url('/teacher/syllabus_coverage/options') }}")
+        fetch("/teacher/syllabus_coverage/options")
             .then(res2 => res2.json())
             .then(data2 => {
                 paymentStatusAllClasses = data2.classes;
@@ -910,7 +910,7 @@ function updatePerformanceCard() {
     const monthSelect = document.getElementById('performance-month-select');
     const tbody = document.getElementById('performance-tbody');
     // Fetch classes for dropdown
-    fetch("{{ url('/teacher/syllabus_coverage/options') }}")
+    fetch("/teacher/syllabus_coverage/options")
         .then(res => res.json())
         .then(data => {
             performanceAllClasses = data.classes;
@@ -943,7 +943,7 @@ function renderPerformanceTable() {
         if (tbody) tbody.innerHTML = '';
         return;
     }
-    fetch("{{ url('/teacher/dashboard/performance') }}", {
+   fetch("/teacher/dashboard/performance", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -1049,7 +1049,7 @@ function animateScoreBars() {
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+@include('footer')
 </body>
- @include('footer') <!-- Include the footer -->
 </html>
 
