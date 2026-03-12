@@ -24,7 +24,7 @@
             $name = $user->firstname ?? $user->user_name ?? 'Parent';
             $role = 'Parent';
             if (!empty($user->profile_picture)) {
-                $profileImage = ;
+                $profileImage = url('uploads/profile_pictures/' . $user->profile_picture);
             }
         }
     }
