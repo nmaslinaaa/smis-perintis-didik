@@ -1,33 +1,42 @@
 @php
-    use App\Models\Employee;
-    use App\Models\ParentModel;
+use App\Models\Employee;
+use App\Models\ParentModel;
 
-    $groupLevel = Session::get('group_level');
-    $userId = Session::get('user_id') ?? Session::get('use_id');
-    $user = Employee::find($userId);
-    $name = 'Guest';
-    $role = 'User';
-    $profileImage = asset('images/user-profile.png');
+$user = session('user');
 
-    if ($groupLevel == 1 || $groupLevel == 2) {
-        $user = Employee::find($userId);
-        if ($user) {
-            $name = $user->firstname ?? $user->user_name ?? 'Employee';
-            $role = $user->group_level == 1 ? 'Administrator' : 'Teacher';
-            if (!empty($user->profile_picture)) {
-                $profileImage = url('uploads/profile_pictures/' . $user->profile_picture);
+$name = 'Guest';
+$role = 'User';
+$profileImage = asset('images/user-profile.png');
+
+if ($user) {
+
+    if ($user->group_level == 1 || $user->group_level == 2) {
+
+        $employee = Employee::find($user->employeeID);
+
+        if ($employee) {
+            $name = $employee->firstname ?? $employee->user_name ?? 'Employee';
+            $role = $employee->group_level == 1 ? 'Administrator' : 'Teacher';
+
+            if (!empty($employee->profile_picture)) {
+                $profileImage = url('uploads/profile_pictures/'.$employee->profile_picture);
             }
         }
-    } elseif ($groupLevel == 3) {
-        $user = ParentModel::find($userId);
-        if ($user) {
-            $name = $user->firstname ?? $user->user_name ?? 'Parent';
+
+    } elseif ($user->group_level == 3) {
+
+        $parent = ParentModel::find($user->parentID);
+
+        if ($parent) {
+            $name = $parent->name ?? $parent->user_name ?? 'Parent';
             $role = 'Parent';
-            if (!empty($user->profile_picture)) {
-                $profileImage = url('uploads/profile_pictures/' . $user->profile_picture);
+
+            if (!empty($parent->profile_picture)) {
+                $profileImage = url('uploads/profile_pictures/'.$parent->profile_picture);
             }
         }
     }
+}
 @endphp
 <header class="header">
     <div class="header-date">
