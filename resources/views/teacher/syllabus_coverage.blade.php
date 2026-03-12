@@ -560,6 +560,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.success) {
                     dateCell.textContent = data.date_completed;
+                    if(status === "Completed"){
+                        select.style.background = "#3cc13b";
+                        select.style.color = "white";
+                    }else{
+                        select.style.background = "#e0e0e0";
+                        select.style.color = "#444";
+                    }
                 } else {
                     dateCell.textContent = '-';
                 }
