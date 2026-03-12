@@ -18,8 +18,15 @@ if ($user) {
             $name = $employee->firstname ?? $employee->user_name ?? 'Employee';
             $role = $employee->group_level == 1 ? 'Administrator' : 'Teacher';
 
-            if (!empty($employee->profile_picture)) {
-                $profileImage = url('uploads/profile_pictures/'.$employee->profile_picture);
+           if (!empty($employee->profile_picture)) {
+
+                $filePath = public_path('uploads/profile_pictures/'.$employee->profile_picture);
+            
+                if (file_exists($filePath)) {
+                    $profileImage = asset('uploads/profile_pictures/'.$employee->profile_picture);
+                } else {
+                    $profileImage = asset('images/user-profile.png');
+                }            
             }
         }
 
@@ -32,7 +39,15 @@ if ($user) {
             $role = 'Parent';
 
             if (!empty($parent->profile_picture)) {
-                $profileImage = url('uploads/profile_pictures/'.$parent->profile_picture);
+
+                $filePath = public_path('uploads/profile_pictures/'.$parent->profile_picture);
+            
+                if (file_exists($filePath)) {
+                    $profileImage = asset('uploads/profile_pictures/'.$parent->profile_picture);
+                } else {
+                    $profileImage = asset('images/user-profile.png');
+                }
+            
             }
         }
     }
