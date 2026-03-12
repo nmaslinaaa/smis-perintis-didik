@@ -4,6 +4,7 @@
 
     $groupLevel = Session::get('group_level');
     $userId = Session::get('user_id');
+    $user = Employee::find($userId);
     $name = 'Guest';
     $role = 'User';
     $profileImage = asset('images/user-profile.png');
@@ -14,7 +15,7 @@
             $name = $user->firstname ?? $user->user_name ?? 'Employee';
             $role = $user->group_level == 1 ? 'Administrator' : 'Teacher';
             if (!empty($user->profile_picture)) {
-                $profileImage = asset('uploads/profile_pictures/' . $user->profile_picture);
+                $profileImage = url('uploads/profile_pictures/' . $user->profile_picture);
             }
         }
     } elseif ($groupLevel == 3) {
@@ -23,7 +24,7 @@
             $name = $user->firstname ?? $user->user_name ?? 'Parent';
             $role = 'Parent';
             if (!empty($user->profile_picture)) {
-                $profileImage = asset('uploads/profile_pictures/' . $user->profile_picture);
+                $profileImage = ;
             }
         }
     }
