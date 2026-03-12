@@ -33,6 +33,10 @@ class TwilioService
      */
     public function sendWhatsAppMessage($toNumber, $message)
     {
+        if (!$this->client) {
+            Log::error('Twilio client not initialized');
+            return false;
+        }
         try {
             // Format the number for WhatsApp
             $whatsappNumber = 'whatsapp:' . $toNumber;
