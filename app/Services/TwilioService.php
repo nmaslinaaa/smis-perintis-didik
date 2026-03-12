@@ -12,13 +12,16 @@ class TwilioService
 
     public function __construct()
     {
-        
-
-        $accountSid = env('TWILIO_ACCOUNT_SID');
-        $authToken = env('TWILIO_AUTH_TOKEN');
-
-        $this->client = new Client($accountSid, $authToken);
-        $this->fromNumber = 'whatsapp:+14155238886'; // Twilio WhatsApp number
+        $sid = config('services.twilio.sid');
+        $token = config('services.twilio.token');
+    
+        if (!$sid || !$token) {
+            \Log::error('Twilio credentials missing');
+            return;
+        }
+    
+        $this->client = new \Twilio\Rest\Client($sid, $token);
+        $this->fromNumber = config('services.twilio.whatsapp_number');
     }
 
     /**
