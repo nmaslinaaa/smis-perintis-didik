@@ -548,7 +548,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const dateCell = row.querySelector('.completion-date');
             const syllabusID = select.getAttribute('data-syllabus-id');
             const status = select.value;
-            fetch("{{ url('/teacher/syllabus_coverage/update_status') }}", {
+            fetch("/teacher/syllabus_coverage/update_status", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
