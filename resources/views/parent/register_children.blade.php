@@ -767,7 +767,7 @@ window.addEventListener('DOMContentLoaded', function() {
             refreshSubjectDropdowns([]); // Clear if no class selected
             return;
         }
-         fetch("{{ url('/parent/class') }}/" + classID + "/subjects", {
+         fetch(`/parent/class/${classID}/subjects`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -780,7 +780,7 @@ window.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error(error);
-        });
+        });;
     });
 
     // Initial attach
