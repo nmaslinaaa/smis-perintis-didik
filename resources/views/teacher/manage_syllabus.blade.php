@@ -425,7 +425,7 @@
             </div>
             <div class="divider"></div>
             @if($selectedClassID && $selectedSubjectID)
-                <form method="POST" action="{{ route('teacher.manage_syllabus.update') }}">
+                <form method="POST" action="{{ url('/teacher/manage_syllabus/update') }}">
                     @csrf
                     <input type="hidden" name="classID" value="{{ $selectedClassID }}">
                     <input type="hidden" name="subjectID" value="{{ $selectedSubjectID }}">
