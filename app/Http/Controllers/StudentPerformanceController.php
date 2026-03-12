@@ -117,11 +117,15 @@ class StudentPerformanceController extends Controller
         }
         // If slot is selected, filter students to only those registered for that slot
         if ($selectedClassSubjectID) {
+
             $slotStudentIDs = \App\Models\StudentSubject::where('classsubjectID', $selectedClassSubjectID)
                 ->pluck('studentID');
-            $students = $students->whereIn('studentID', $slotStudentIDs);
+        
+            if ($slotStudentIDs->count() > 0) {
+                $students = $students->whereIn('studentID', $slotStudentIDs);
+            }
+        
         }
-
         // Fetch existing performance data for this class, subject, month, and slot
         $performanceData = [];
         if ($subjectID && $selectedClassSubjectID) {
