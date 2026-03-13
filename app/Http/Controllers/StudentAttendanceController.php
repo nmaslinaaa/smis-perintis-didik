@@ -78,11 +78,13 @@ class StudentAttendanceController extends Controller
             $studentIDs = DB::table('student_subject')
                 ->where('classsubjectID', $slot->classsubjectID)
                 ->pluck('studentID');
-            $students = DB::table('student')
-                ->leftJoin('parent', 'student.parentID', '=', 'parent.parentID')
-                ->whereIn('student.studentID', $studentIDs)
-                ->select('student.*', DB::raw("SUBSTRING_INDEX(parent.name, ' ', 1) as parent_name"))
-                ->get();
+           $students = DB::table('student')
+            ->leftJoin('parent', 'student.parentID', '=', 'parent.parentID')
+            ->whereIn('student.studentID', $studentIDs)
+            ->where('student.student_status', 1)
+            ->where('student.verification_status', 'approved')
+            ->select('student.*', DB::raw("SUBSTRING_INDEX(parent.name, ' ', 1) as parent_name"))
+            ->get();
         }
 
         // Fetch existing attendance for today, this slot, and teacher
